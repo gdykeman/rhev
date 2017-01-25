@@ -1,0 +1,72 @@
+---
+- name: deply VM into RHEV
+  connection: local
+  hosts: localhost
+
+  vars_prompt:
+    - name: opass
+      prompt: "RHEV Password?"
+
+  tasks:
+    - name: Obtain SSO token with username/password
+      ovirt_auth:
+        url: https://engine.fortnebula.com/ovirt-engine/api
+        username: gdykeman@fortnebula.com
+        password: "{{ opass }}"
+
+    - name: Deploy VM
+      ovirt_vms:
+        auth: "{{ ovirt_auth }}"
+        state: stopped
+        cluster: Default
+        name: testvm12
+        template: rhel-7-base-template        
+        type: server
+        clone: yes
+
+
+    - name: configure NIC
+      ovirt_nics:
+        auth: "{{ ovirt_auth }}"
+        state: absent
+        vm: testvm12
+        name: eth0
+
+    - name: configure external nic
+      ovirt_nics:
+        auth: "{{ ovirt_auth }}"
+        state: plugged
+        vm: testvm12
+        name: nic1
+        interface: virtio
+        network: external
+        profile: external
+
+    - name: Boot up VM
+      ovirt_vms:
+        auth: "{{ ovirt_auth }}"
+        state: running
+        name: testvm12
+
+    - name: configure external nic
+      ovirt_nics:
+        auth: "{{ ovirt_auth }}"
+        state: present
+        vm: testvm12
+        name: nic1
+        interface: virtio
+        profile: external
+        network: external
+
+    - name: configure external nic
+      ovirt_nics:
+        auth: "{{ ovirt_auth }}"
+        state: present
+        vm: testvm12
+        name: nic1
+        interface: virtio
+        profile: 7d4ebdf7-36fa-4810-988b-417c52208d87
+        network: 7d4ebdf7-36fa-4810-988b-417c52208d87
+
+        
+
