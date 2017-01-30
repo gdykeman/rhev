@@ -15,12 +15,11 @@
         password: "{{ pass }}"
         force_register: yes
 
-
     - pause:
         seconds: 10
 
     - name: attach pool
-      command: subscription-manager attach --pool=8a85f98659b89f210159bd1d355f7c5c
+      command: subscription-manager attach --pool="{{ poolid }}"
       ignore_errors: yes
 
     - name: add subscription repos
