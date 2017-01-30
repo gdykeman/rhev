@@ -14,7 +14,7 @@
         username: "{{ uname }}"
         password: "{{ pass }}"
 #        force_register: yes
-        ignore_errors: yes
+      ignore_errors: yes
 
     - pause:
         seconds: 10

@@ -6,9 +6,10 @@ ansible_ssh_pass=ansible
 localhost
 
 [rhel]
-
+71.171.115.26
 
 [vm]
-
+192.168.5.242
+192.168.5.243
 
 [test]
