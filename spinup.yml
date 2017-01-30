@@ -27,7 +27,6 @@
         cloud_init:
           user_name: "{{ rheluser }}"
           root_password: "{{ rhelpass }}"
-          authorized_ssh_keys: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf2Ge5kHO1mus3Rrg+4vX9QE++9ilJOuw3iVNDl+/NjiOv1YVBAW882Pl8KHprUWBBLmnCcihV1+r7b+ceadKFPJOYRL21E3bsp5gtEEFA3Jf/GFWkl8WY+sjZ7JpuQuaZsymoUFyu33w11tHDHkhwkOgEhHHuWleUfmLpsQOgevlpC00MkA53I8PSedDFMMiuFaHxIyr9McN0Zr+fdUjzpzhAO7v7Byx9Ete4rhO6PiLQdDSRqvP7BJy9xIkUR82Qeayq4FhghWbFuy8JGlbrHD3eMSat9XdOgvOXq5ZUyG/cRRdQvu8MvqJLZVasDs91hquETqZ+RqiHTBLA9KvL gdykeman@localhost.localdomain'
       with_items: "{{ vms }}"
 #      register: output
 
