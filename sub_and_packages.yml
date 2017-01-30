@@ -8,9 +8,6 @@
     - vars/rpms.yml
 
   tasks:
-    - pause:
-        seconds: 10
-
     - name: register subscription
       redhat_subscription:
         state: present
@@ -18,18 +15,12 @@
         password: "{{ pass }}"
         force_register: yes
 
-#    - name: register subscription
-#      command: subscription-manager register --username "{{ uname }}" --password "{{ pass }}" --force
 
     - pause:
         seconds: 10
 
     - name: attach pool
       command: subscription-manager attach --pool=8a85f98659b89f210159bd1d355f7c5c
-#      register: task_result
-#      until: task_result.stdout.find('Successfully attached a subscription') != 0
-#      retries: 5
-#      delay: 3
       ignore_errors: yes
 
     - name: add subscription repos
@@ -41,9 +32,6 @@
       ignore_errors: yes
 
 #    - name: update yum
-#      yum:
-#        name: '*'
-#        state: latest
 
     - name: Install rhevm-guest-agent
       yum:

@@ -11,7 +11,7 @@
     - name: Obtain SSO token with username/password
       ovirt_auth:
         url: https://engine.fortnebula.com/ovirt-engine/api
-        username: gdykeman@fortnebula.com
+        username: "{{ rhev }}"
         password: "{{ pass }}"
 
     - ovirt_nics_facts:
