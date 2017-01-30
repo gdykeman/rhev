@@ -1,0 +1,5 @@
+---
+rpms:
+  - rhel-7-server-rh-common-rpms
+#  - rhel-7-server-optional-rpms
+#  - rhel-7-server-extras-rpms

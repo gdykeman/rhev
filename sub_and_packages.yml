@@ -1,0 +1,80 @@
+---
+- name: Subscription Manager & Initial Packages
+  hosts: new_hosts
+  become: yes
+
+  vars_files:
+    - vars/pass.yml
+    - vars/rpms.yml
+
+  tasks:
+    - pause:
+        seconds: 10
+
+    - name: register subscription
+      redhat_subscription:
+        state: present
+        username: "{{ uname }}"
+        password: "{{ pass }}"
+        force_register: yes
+
+#    - name: register subscription
+#      command: subscription-manager register --username "{{ uname }}" --password "{{ pass }}" --force
+
+    - pause:
+        seconds: 10
+
+    - name: attach pool
+      command: subscription-manager attach --pool=8a85f98659b89f210159bd1d355f7c5c
+#      register: task_result
+#      until: task_result.stdout.find('Successfully attached a subscription') != 0
+#      retries: 5
+#      delay: 3
+      ignore_errors: yes
+
+    - name: add subscription repos
+      command: subscription-manager repos --enable "{{ item }}"
+      with_items: "{{ rpms }}"
+
+    - name: add rpm
+      command: rpm -iUvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      ignore_errors: yes
+
+#    - name: update yum
+#      yum:
+#        name: '*'
+#        state: latest
+
+    - name: Install rhevm-guest-agent
+      yum:
+        name: rhevm-guest-agent-common
+        state: present
+
+    - name: start the service
+      service:
+        name: ovirt-guest-agent.service
+        state: started
+
+    - name: enable service
+      service:
+        name: ovirt-guest-agent.service
+        enabled: yes
+
+    - name: install spice
+      yum:
+        name: spice-vdagent
+        state: present
+
+    - name: start service
+      service:
+        name: spice-vdagentd
+        state: started
+
+    - name: enable service
+      service:
+        name: spice-vdagentd
+        enabled: yes
+
+    - name: yum complete transaction
+      command: yum-complete-transaction
+      ignore_errors: yes

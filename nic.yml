@@ -1,0 +1,25 @@
+---
+- name: Gather NIC facts
+  connection: local
+  hosts: localhost
+
+  vars_files:
+    - vars/list.yml
+    - vars/pass.yml
+
+  tasks:
+    - name: Obtain SSO token with username/password
+      ovirt_auth:
+        url: https://engine.fortnebula.com/ovirt-engine/api
+        username: gdykeman@fortnebula.com
+        password: "{{ pass }}"
+
+    - ovirt_nics_facts:
+        auth: "{{ ovirt_auth }}"
+        vm: "{{ item }}"
+        name: eth0
+      with_items: "{{ vms }}"
+      register: nic
+
+    - debug:
+        var: nic

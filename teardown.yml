@@ -1,0 +1,24 @@
+---
+- name: deply VM into RHEV
+  connection: local
+  hosts: localhost
+
+  vars_files:
+    - vars/list.yml
+    - vars/pass.yml
+
+  tasks:
+    - name: Obtain SSO token with username/password
+      ovirt_auth:
+        url: https://engine.fortnebula.com/ovirt-engine/api
+        username: gdykeman@fortnebula.com
+        password: "{{ pass }}"
+
+    - name: Teardown VM(s)
+      ovirt_vms:
+        auth: "{{ ovirt_auth }}"
+        state: absent
+        cluster: Default
+        name: "{{ item }}"
+      with_items: "{{ vms }}"
+      register: output
