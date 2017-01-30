@@ -13,7 +13,8 @@
         state: present
         username: "{{ uname }}"
         password: "{{ pass }}"
-        force_register: yes
+#        force_register: yes
+        ignore_errors: yes
 
     - pause:
         seconds: 10
