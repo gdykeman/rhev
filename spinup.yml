@@ -5,7 +5,7 @@
 
   vars_files:
     - vars/list.yml
-    - vars/pass.yml
+    - vars/vault.yml
 
   tasks:
     - name: Obtain SSO token with username/password
@@ -45,8 +45,8 @@
         name: "{{ item.item }}"
         ansible_host: "{{ ovirt_nics[0].reported_devices[0].ips[0].address}}"
         groups: new_hosts
-        ansible_ssh_user: root
-        ansible_ssh_pass: ansible
+        ansible_ssh_user: "{{ sshuser }}"
+        ansible_ssh_pass: "{{ sshpass }}"
       with_items: "{{ nic.results }}"
 
 
