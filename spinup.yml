@@ -50,6 +50,6 @@
       with_items: "{{ nic.results }}"
 
 
-- include: sub_and_packages.yml
-- include: stig.yml
-- include: ./examples/apache-basic-playbook/site.yml
+#- include: sub_and_packages.yml
+#- include: stig.yml
+#- include: ./examples/apache-basic-playbook/site.yml

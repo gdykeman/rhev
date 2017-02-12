@@ -13,8 +13,6 @@
         state: present
         username: "{{ uname }}"
         password: "{{ pass }}"
-#        force_register: yes
-      ignore_errors: yes
 
     - pause:
         seconds: 10
@@ -31,7 +29,6 @@
       command: rpm -iUvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
       ignore_errors: yes
 
-#    - name: update yum
 
     - name: Install rhevm-guest-agent
       yum:
@@ -63,6 +60,6 @@
         name: spice-vdagentd
         enabled: yes
 
-    - name: yum complete transaction
-      command: yum-complete-transaction
-      ignore_errors: yes
+#    - name: yum complete transaction
+#      command: yum-complete-transaction
+#      ignore_errors: yes
