@@ -10,7 +10,7 @@
   tasks:
     - name: Obtain SSO token with username/password
       ovirt_auth:
-        url: https://engine.fortnebula.com/ovirt-engine/api
+        url: "{{ api }}"
         username: "{{ rhevuser }}"
         password: "{{ rhevpass }}"
 
