@@ -11,8 +11,8 @@
     - name: register subscription
       redhat_subscription:
         state: present
-        username: "{{ uname }}"
-        password: "{{ pass }}"
+        username: "{{ rhuser }}"
+        password: "{{ rhpass }}"
 
     - pause:
         seconds: 10
