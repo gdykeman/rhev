@@ -5,14 +5,14 @@
 
   vars_files:
     - vars/list.yml
-    - vars/pass.yml
+    - vars/vault.yml
 
   tasks:
     - name: Obtain SSO token with username/password
       ovirt_auth:
-        url: https://engine.fortnebula.com/ovirt-engine/api
-        username: "{{ rhev }}"
-        password: "{{ pass }}"
+        url: "{{ api }}"
+        username: "{{ rhevuser }}"
+        password: "{{ rhevpass }}"
 
     - name: Teardown VM(s)
       ovirt_vms:

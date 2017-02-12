@@ -5,7 +5,7 @@
 
   vars_files:
     - vars/list.yml
-    - vars/pass.yml
+    - vars/vault.yml
 
   tasks:
     - name: Obtain SSO token with username/password
